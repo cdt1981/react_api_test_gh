@@ -1,6 +1,16 @@
-.App {
-  text-align: center;
-  top: 0;
-  left: 0;
+ul > li:hover{
+
+  border-top: 1px solid rgba(204,202,204,0.75);
+  border-bottom: 1px solid rgba(204,202,204,0.75);
+  box-shadow: 0px -7px 10px 0px rgba(204,202,204,0.75),
+              0px 7px 10px 0px rgba(204,202,204,0.75);
+  -webkit-box-shadow: 0px -7px 10px 0px rgba(204,202,204,0.75),
+                      0px 7px 10px 0px rgba(204,202,204,0.75);
   
+}
+
+#offcanvasNavbarTest{
+
+  overflow-y: scroll;
+
 }
