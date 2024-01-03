@@ -1,23 +1,64 @@
 import './App.css';
+import Card from './components/Card';
+import { useState, useEffect } from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 
 function App() {
+
+  const [datos, setDatos] = useState();
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    numero: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    caratula: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    descripcion: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    estado: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  });
+  const [globalFilterValue, setGlobalFilterValue] = useState('');
+
+  const onGlobalFilterChange = (e) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    _filters['global'].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
 
   function agregarDatos() {
     fetch("https://script.google.com/macros/s/AKfycbwFuOWTwH5e0jcfBj_5I8Z1LmBiSrjtI2byhxtRJ8pRXNY-ZWKzeb0ttZSVoaDhpEwz/exec?action=agregarDatos",
       {
         method: "POST",
         body: JSON.stringify({
-          "agente": "Carlos",
-          "numero": 12345,
+          agente: "Carlos",
+          numero: 12345,
         }),
       })
   }
 
+  /* function obtenerDatos() {
+    return fetch("https://script.google.com/macros/s/AKfycbzmeA3w5P9vXQQHxp2pP5pJ_FRPEQgs3NzSqZaopXshjUuHqsMpA0IpUGCvYENFbM3N/exec?action=obtenerDatos",
+        { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+
+  } */
   function obtenerDatos() {
-    fetch("https://script.google.com/macros/s/AKfycbzmeA3w5P9vXQQHxp2pP5pJ_FRPEQgs3NzSqZaopXshjUuHqsMpA0IpUGCvYENFbM3N/exec?action=obtenerDatos",
+    return fetch("https://script.google.com/macros/s/AKfycbyIAlDAQ5v4bwjlufLQTqzylYghlvnlje-BtBmbZcmUPMwaT2NPmD483WsfWDnT3odt/exec?action=obtenerDatos",
       { method: "GET" })
-      .then((response) => response.text())
-      .then((data) => console.log(JSON.parse(data)))
+      .then((response) => response.json())
+      .then((data) => {
+        for (let i = 0; i < data.lenght; i++) {
+          data[i].key.replace(`"`, ``)
+        }
+        setDatos(data)
+      })
+
   }
 
   function eliminarDatos() {
@@ -30,6 +71,23 @@ function App() {
       })
       .then(() => console.log("eliminado"))
   }
+
+  useEffect(() => {
+    obtenerDatos()
+  }, [])
+
+  const actionButtons = () => {
+
+    return (
+      <div>
+        <Button className='rounded bg-success border'><i class="fa-regular fa-pen-to-square"></i></Button>
+        <Button className='rounded bg-danger border'><i class="fa-regular fa-trash-can"></i></Button>
+      </div>
+      
+    )
+
+  }
+
 
   return (
     <>
@@ -81,47 +139,42 @@ function App() {
           </div>
         </div>
       </nav>
+      <section className="border m-4 shadow p-3 mb-5 bg-body-tertiary rounded">
+        <div>
+          <div className="d-flex justify-content-end m-2">
+            <span className="p-input-icon-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Buscar..." />
+            </span>
+          </div>
+          <DataTable value={datos}
+            stripedRows
+            showGridlines
+            paginator
+            rows={15}
+            tableStyle={{ minWidth: '100rem' }}
+            filters={filters}
+          >
+            <Column header="Número" filterField='numero' field='numero' style={{ width: '6%', textAlign: 'end' }}></Column>
+            <Column header="Carátula" filterField='caratula' field='caratula' style={{ width: '20%' }}></Column>
+            <Column header="Ingreso" sortable field='ingreso' style={{ width: '6%' }}></Column>
+            <Column header="Proyecto" field='proyecto' style={{ width: '6%' }}></Column>
+            <Column header="Egreso" field='egreso' style={{ width: '6%' }}></Column>
+            <Column header="Descripción" filterField='descripcion' field='descripcion' style={{ width: '30%' }}></Column>
+            <Column header="Estado" filterField='estado' sortable field='estado' style={{ width: '8%' }}></Column>
+            <Column header="Acciones" style={{ width: '5%' }} body={actionButtons} ></Column>
+          </DataTable>
+        </div>
+      </section>
       <section className="container-fluid d-flex flex-wrap gap-3  m-4">
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-        <div class="card" style={{"width": "18rem"}}>
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+        <Card alt="ninguna" title="PENDIENTES" text="Expedientes pendientes de resolver" buttonText="Resolver" />
+
+
 
       </section>
 
