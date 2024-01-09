@@ -1,15 +1,15 @@
-import Default from './img/default.jpg';
+import Default from '../img/default.jpg';
 
 export default function Card(props) {
 
 
     return (
-        <div class="card" style={{ "width": "18rem" }}>
-            <img src={Default} class="card-img-top" />
-            <div class="card-body">
-                <h5 class="card-title"> {props.title}</h5>
-                <p class="card-text">{props.text}</p>
-                <a href="#" class="btn btn-primary float-end">{props.buttonText}</a>
+        <div className="card" style={{ "width": "18rem" }}>
+            <img src={Default} className="card-img-top" alt='' />
+            <div className="card-body">
+                <h5 className="card-title"> {props.title}</h5>
+                <p className="card-text">{props.text}</p>
+                <a href="/" className="btn btn-primary float-end">{props.buttonText}</a>
             </div>
         </div>
     )
