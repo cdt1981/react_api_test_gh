@@ -26,6 +26,10 @@ export default function Interlocutorios() {
     const [estados] = useState(['Sin proyecto', 'Circulando', 'Registrado', 'MMP']);
     const [date, setDate] = useState(null);
     const [state, setState] = useState(true);
+    const [dataToEdit, setDataToEdit] = useState({})
+    const [dataToAppend, setDataToAppend] = useState({})
+    const [estado, setEstado] = useState()
+
 
     const getSeverity = (value) => {
 
@@ -40,15 +44,7 @@ export default function Interlocutorios() {
                 return 'info';
         }
     }
-    const onRowEditComplete = (e) => {
-        let _datos = [...datos];
-        let { newData, index } = e;
-
-        _datos[index] = newData;
-
-        setDatos(_datos);
-
-    }
+    
 
     const textEditor = (options) => {
         return <InputText type="text" style={{ width: '100%' }} value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
@@ -65,9 +61,9 @@ export default function Interlocutorios() {
                 options={estados}
                 onChange={(e) => options.editorCallback(e.value)}
                 placeholder="Elegir un estado..."
-                itemTemplate={(option) => {
-                    return <Tag value={option} severity={getSeverity(option)}></Tag>;
-                }}
+            /* itemTemplate={(option) => {
+                return <Tag value={option} severity={getSeverity(option)}></Tag>;
+            }} */
             />
         );
     };
@@ -103,24 +99,35 @@ export default function Interlocutorios() {
             case "agregar":
                 toast.current.show({ severity: 'success', summary: 'Info', detail: 'Expediente agregado...' });
                 break;
-            case "editar":
-                toast.current.show({ severity: 'warning', summary: 'Info', detail: 'Expediente actualizado...' });
+            case "modificar":
+                toast.current.show({ severity: 'warn', summary: 'Info', detail: 'Expediente actualizado...' });
                 break;
-                    
+
             default:
                 break;
         }
     };
 
     function agregarDatos() {
-        fetch("https://script.google.com/macros/s/AKfycbwFuOWTwH5e0jcfBj_5I8Z1LmBiSrjtI2byhxtRJ8pRXNY-ZWKzeb0ttZSVoaDhpEwz/exec?action=agregarDatos",
+        fetch("https://script.google.com/macros/s/AKfycbxvR3O02-duhd7JbzPRgIuSthicjxGN2Q-CC6rT53oBQqm1mGpCQq0E2ASkVPRuxwHv/exec?action=agregarDatos",
             {
                 method: "POST",
-                body: JSON.stringify({
-                    agente: "Carlos",
-                    numero: 12345,
-                }),
+                body: JSON.stringify(dataToAppend),
             })
+            .then(() => setState(!state))
+            .then(() => showToast("agregar"))
+    }
+
+    function modificarDatos(e) {
+            let { newData } = e;
+            
+        fetch("https://script.google.com/macros/s/AKfycbzL7IwRf6AwItp31ZIYlMMGapqlLG7Jg4kh5IJ40J-YGPmhCSjxqGizbRF_mPzpQe5s/exec?action=modificarDatos",
+            {
+                method: "POST",
+                body: JSON.stringify(newData),
+            })
+            .then(() => setState(!state))
+            .then(() => showToast("modificar"))
     }
 
     /* function obtenerDatos() {
@@ -131,7 +138,7 @@ export default function Interlocutorios() {
   
     } */
     function obtenerDatos() {
-        return fetch("https://script.google.com/macros/s/AKfycbwb-RLxGGKxjy50cVChw7kwBLKe8pISDDkzVhO61hhfHKABz2FS-Onep_TyhaHDEmDr/exec?action=obtenerDatos",
+        return fetch("https://script.google.com/macros/s/AKfycbxvR3O02-duhd7JbzPRgIuSthicjxGN2Q-CC6rT53oBQqm1mGpCQq0E2ASkVPRuxwHv/exec?action=obtenerDatos",
             { method: "GET" })
             .then((response) => response.json())
             .then((data) => {
@@ -160,6 +167,12 @@ export default function Interlocutorios() {
 
     }, [state]) // eslint-disable-line react-hooks/exhaustive-deps
 
+    function arrayToAppend(clave, valor) {
+
+        setDataToAppend({ ...dataToAppend, [clave]: valor })
+
+    }
+
     return (
 
         <section className="border m-4 shadow p-3 mb-5 bg-body-tertiary rounded" id='interlocutorios'>
@@ -175,12 +188,12 @@ export default function Interlocutorios() {
                     </span>
                 </div>
                 <div className='d-flex gap-3 m-3'>
-                    <InputText placeholder='Número' style={{ minWidth: '5%' }}/>
-                    <InputText placeholder='Carátula' style={{ width: '100%' }}/>
-                    <Calendar value={date} onChange={(e) => setDate(e.value)} style={{ minWidth: '7%' }} dateFormat='dd/mm/yy'/>
-                    <InputText placeholder='Descripción' style={{ width: '100%' }}/>
-                    <Dropdown placeholder='Estado' style={{ minWidth: '7%' }}/>
-                    <Button label='Agregar' severity='success' rounded icon="pi pi-check" style={{borderRadius: "5px", minWidth: "10%"}}/>
+                    <InputText placeholder='Número' id='numero' onChange={(e) => arrayToAppend(e.target.id, e.target.value)} style={{ minWidth: '5%' }} />
+                    <InputText placeholder='Carátula' id='caratula' onChange={(e) => arrayToAppend(e.target.id, e.target.value)} style={{ width: '100%' }} />
+                    <Calendar value={date} id='ingreso' onChange={(e) => { setDate(e.value); arrayToAppend(e.target.id, new Intl.DateTimeFormat('es-SP').format(e.target.value)) }} style={{ minWidth: '7%' }} dateFormat='dd/mm/yy' />
+                    <InputText placeholder='Descripción' id='descripcion' onChange={(e) => arrayToAppend(e.target.id, e.target.value)} style={{ width: '100%' }} />
+                    <Dropdown placeholder='Estado' id='estado' onChange={(e) => { arrayToAppend(e.target.id, e.target.value); setEstado(e.value) }} options={estados} value={estado} style={{ minWidth: '7%' }} />
+                    <Button label='Agregar' onClick={() => agregarDatos(dataToAppend)} severity='success' rounded icon="pi pi-check" style={{ borderRadius: "5px", minWidth: "10%" }} />
                 </div>
                 <DataTable
                     value={datos}
@@ -188,9 +201,9 @@ export default function Interlocutorios() {
                     dataKey='id'
                     selection={expediente}
                     editMode="row"
-                    onRowEditComplete={onRowEditComplete}
-                    onSelectionChange={(e) => setExpediente(e.value)}
-                    onDoubleClick={(e) => console.log(e.currentTarget)}
+                    onRowEditComplete={(e) => modificarDatos(e)}
+                    /* onSelectionChange={(e) => setExpediente(e.value)} */
+                    /* onDoubleClick={(e) => console.log(e.currentTarget)} */
                     paginator
                     rows={15}
                     tableStyle={{ minWidth: '100rem', height: '60rem' }}

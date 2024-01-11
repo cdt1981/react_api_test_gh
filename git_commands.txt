@@ -1,0 +1,5 @@
+git add .
+git commit -m "algun texto"
+git push
+npm run predeploy
+npm run deploy
