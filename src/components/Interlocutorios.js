@@ -75,7 +75,7 @@ export default function Interlocutorios() {
     const deleteRow = (rowData) => {
         const icon = 'pi  pi-times';
 
-        return <Button type="button" style={{ backgroundColor: 'white', border: 'none', color: 'grey' }} icon={icon} onClick={() => eliminarDatos(rowData.id)} />;
+        return <Button type="button" style={{ backgroundColor: 'transparent', border: 'none', color: 'grey' }} icon={icon} onClick={() => eliminarDatos(rowData.id)} />;
 
     }
 
@@ -180,8 +180,8 @@ export default function Interlocutorios() {
                 <Toast ref={toast} position='bottom-right' />
             </div>
             <div>
-                <div className="d-flex justify-content-between m-2 ">
-                    <h1 style={{ fontFamily: 'Arial' }}>Interlocutorios</h1>
+                <div className="d-flex justify-content-between m-2">
+                    <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Interlocutorios</h1>
                     <span className="p-input-icon-left">
                         <i className="fa-solid fa-magnifying-glass"></i>
                         <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Buscar..." />
@@ -200,15 +200,17 @@ export default function Interlocutorios() {
                     showGridlines
                     dataKey='id'
                     selection={expediente}
+                    selectionMode='single'
                     editMode="row"
                     onRowEditComplete={(e) => modificarDatos(e)}
                     /* onSelectionChange={(e) => setExpediente(e.value)} */
                     /* onDoubleClick={(e) => console.log(e.currentTarget)} */
                     paginator
                     rows={15}
-                    tableStyle={{ minWidth: '100rem', height: '60rem' }}
+                    tableStyle={{ minWidth: '100rem', height: 'auto' }}
                     filters={filters}
 
+                    className='border'
                 >
                     <Column header="Id" filterField='id' field='id' style={{ width: '2%', textAlign: 'center' }}></Column>
                     <Column header="Número" filterField='numero' field='numero' editor={(options) => textEditor(options)} style={{ width: '6%', textAlign: 'end' }}></Column>

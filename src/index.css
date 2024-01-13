@@ -7,7 +7,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+  color: black
+}
+
+li{
+  text-decoration: none;
+}
+
+li:hover{
+  background-color: gainsboro;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* @media (max-width: 600px ) {
+  a {
+    display: none;
+  }
+} */

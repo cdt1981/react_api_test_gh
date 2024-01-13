@@ -1,12 +1,11 @@
 import Default from '../img/default.jpg';
+import Menu from './Menu';
 
 export default function Nav() {
-
-
     return (
         <nav className="navbar bg-body-tertiary sticky-top">
-            <div className="container-fluid d-flex justify-content-between">
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarTest" aria-controls="offcanvasNavbarTest" aria-label="Toggle navigation">
+            <div className="container-fluid">
+                {/*                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarTest" aria-controls="offcanvasNavbarTest" aria-label="Toggle navigation">
                     <span><i className="fa-solid fa-money-bill-trend-up"></i></span>
                 </button>
                 <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbarTest" aria-labelledby="offcanvasNavbarLabelTest">
@@ -22,11 +21,11 @@ export default function Nav() {
                             <a className="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                     </ul>
-                </div>
-                <div className='bg-info d-flex flex-grow-1 mx-2 fs-4'>
-                    información financiera
-                </div>
-                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                </div> */}
+
+                <Menu></Menu>
+
+                {/*                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span><i className="fa-solid fa-gear"></i></span>
                 </button>
                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -50,7 +49,7 @@ export default function Nav() {
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> */}
             </div>
         </nav>
     )
