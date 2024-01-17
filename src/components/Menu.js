@@ -1,19 +1,20 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import { Toolbar } from 'primereact/toolbar';
 import { Badge } from 'primereact/badge';
 
 export default function Menu(props) {
 
-    const items = [
-        {
-            label: 'Update',
-            icon: 'pi pi-refresh'
-        },
-        {
-            label: 'Delete',
-            icon: 'pi pi-times'
-        }
-    ];
+    const [unreadMails, setUnreadMails] = useState()
+
+    const endpoint = "https://script.google.com/macros/s/AKfycbzbYTHapIn4aK-eGdbWbe-_Vfse_XU4l5hENJ5twHkPvi_b7Ip-sn7asQ2wfDSjviMB/exec?action=obtenerCorreosPendientes";
+
+    useEffect(() => {
+        fetch(endpoint, {method: "GET"})
+        .then((response) => response.json())
+        .then((data) => data? setUnreadMails(data): setUnreadMails("0"))
+        
+    }, [])
+    
 
     const startContent = (
         <>
@@ -23,15 +24,15 @@ export default function Menu(props) {
 
     const centerContent = (
         <ul className="list-group list-group-horizontal fs-5">
-            <li class="list-group-item">
+            <li className="list-group-item">
                 <span><i className='pi pi-chart-line mx-3'></i></span>
                 <a href="#">Liquidaciones</a>
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
                 <span><i className='pi pi-database mx-3'></i></span>
                 <a href="#">Modelos</a>
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
                 <span><i className='pi pi-server mx-3'></i></span>
                 <a href="#">Sentencias</a>
             </li>
@@ -40,11 +41,11 @@ export default function Menu(props) {
 
     const endContent = (
         <ul className="list-group list-group-horizontal fs-5">
-            <li class="list-group-item d-flex align-items-center">
+            <li className="list-group-item d-flex align-items-end">
                 <i className='pi pi-envelope p-overlay-badge mx-3' style={{ fontSize: '1.5rem' }}>
-                    <Badge value='2' severity='danger'></Badge>
+                    <Badge value={unreadMails} severity='danger'></Badge>
                 </i>
-                <a href="#">Gmail</a>
+                <a href="https://www.gmail.com" target='_blank'>Gmail</a>
             </li>
         </ul>
     );

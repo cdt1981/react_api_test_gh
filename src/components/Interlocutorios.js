@@ -11,6 +11,7 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 
+
 export default function Interlocutorios() {
 
     const [datos, setDatos] = useState();
@@ -182,7 +183,7 @@ export default function Interlocutorios() {
             <div>
                 <div className="d-flex justify-content-between m-2">
                     <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Interlocutorios</h1>
-                    <span className="p-input-icon-left">
+                    <span className="p-input-icon-left d-flex align-items-center">
                         <i className="fa-solid fa-magnifying-glass"></i>
                         <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Buscar..." />
                     </span>
@@ -219,7 +220,7 @@ export default function Interlocutorios() {
                     <Column header="Proyecto" field='proyecto' editor={(options) => dateEditor(options)} style={{ width: '6%' }}></Column>
                     <Column header="Egreso" field='egreso' editor={(options) => dateEditor(options)} style={{ width: '6%' }}></Column>
                     <Column header="Descripción" filterField='descripcion' field='descripcion' editor={(options) => textEditor(options)} style={{ width: '30%' }}></Column>
-                    <Column header="Estado" filterField='estado' sortable field='estado' editor={(options) => statusEditor(options)} style={{ width: '7%' }}></Column>
+                    <Column header="Estado" filterField='estado' sortable field='estado' editor={(options) => statusEditor(options)} style={{ width: '7%' }} ></Column>
                     {/* <Column header="Acciones" style={{ width: '6%' }} body={actionButtons} ></Column> */}
                     <Column header="Editar" rowEditor={allowEdit} headerStyle={{ width: '6%' }} bodyStyle={{ textAlign: 'center' }}></Column>
                     <Column header="Borrar" body={deleteRow} headerStyle={{ width: '6%' }} bodyStyle={{ textAlign: 'center' }}></Column>
