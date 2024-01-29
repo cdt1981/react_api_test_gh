@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react_api_test_gh/static/css/main.a378967f.css",
-    "main.js": "/react_api_test_gh/static/js/main.fad2f1e4.js",
+    "main.js": "/react_api_test_gh/static/js/main.dc7dd596.js",
     "static/media/primeicons.svg": "/react_api_test_gh/static/media/primeicons.e1441b135b3ca9ad643c.svg",
     "static/media/primeicons.eot": "/react_api_test_gh/static/media/primeicons.d44157bdfa026dc877af.eot",
     "static/media/primeicons.woff": "/react_api_test_gh/static/media/primeicons.10d3152104f2208ac82a.woff",
@@ -9,10 +9,10 @@
     "static/media/primeicons.woff2": "/react_api_test_gh/static/media/primeicons.78172950b335ccdb94e2.woff2",
     "index.html": "/react_api_test_gh/index.html",
     "main.a378967f.css.map": "/react_api_test_gh/static/css/main.a378967f.css.map",
-    "main.fad2f1e4.js.map": "/react_api_test_gh/static/js/main.fad2f1e4.js.map"
+    "main.dc7dd596.js.map": "/react_api_test_gh/static/js/main.dc7dd596.js.map"
   },
   "entrypoints": [
     "static/css/main.a378967f.css",
-    "static/js/main.fad2f1e4.js"
+    "static/js/main.dc7dd596.js"
   ]
 }
