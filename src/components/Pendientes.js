@@ -23,7 +23,7 @@ export default function Pendientes(props) {
     }, [isUpdated])
 
     return (
-        <section className="d-xl-flex justfy-content-center flex-wrap m-2 shadow bg-body-tertiary rounded border p-3 text-white">
+        <section className="d-xl-flex justfy-content-center flex-wrap m-2 border p-3 text-white">
             <div className='row p-3 d-flex flex-fill'>
                 <div className='border border-solid rounded shadow bg-warning d-flex justify-content-center align-items-center mb-2' style={{ fontSize: "2rem" }}>
                     <span> Terminados: </span><br></br>

@@ -3,11 +3,10 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
 import { Calendar } from 'primereact/calendar';
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 import 'primeicons/primeicons.css';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 
@@ -176,7 +175,7 @@ export default function Interlocutorios() {
 
     return (
 
-        <section className="border m-4 shadow p-3 mb-5 bg-body-tertiary rounded" id='interlocutorios'>
+        <section className="border m-4 p-3 mb-5" id='interlocutorios'>
             <div className="card flex justify-content-center">
                 <Toast ref={toast} position='bottom-right' />
             </div>
