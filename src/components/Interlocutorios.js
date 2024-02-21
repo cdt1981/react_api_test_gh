@@ -44,7 +44,7 @@ export default function Interlocutorios() {
                 return 'info';
         }
     }
-    
+
 
     const textEditor = (options) => {
         return <InputText type="text" style={{ width: '100%' }} value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
@@ -119,8 +119,8 @@ export default function Interlocutorios() {
     }
 
     function modificarDatos(e) {
-            let { newData } = e;
-            
+        let { newData } = e;
+
         fetch("https://script.google.com/macros/s/AKfycbzL7IwRf6AwItp31ZIYlMMGapqlLG7Jg4kh5IJ40J-YGPmhCSjxqGizbRF_mPzpQe5s/exec?action=modificarDatos",
             {
                 method: "POST",
@@ -173,12 +173,19 @@ export default function Interlocutorios() {
 
     }
 
+    const rowClass = (datos) => {
+        return {
+            'bg-danger bg-opacity-25': datos.estado === 'MMP',
+            'bg-success bg-opacity-25': datos.estado === 'Registrado',
+            'bg-warning bg-opacity-25': datos.estado === 'Pendiente',
+            'bg-info bg-opacity-25': datos.estado === 'Circulando',
+        };
+    };
+
     return (
 
         <section className="border m-4 p-3 mb-5" id='interlocutorios'>
-            <div className="card flex justify-content-center">
-                <Toast ref={toast} position='bottom-right' />
-            </div>
+            <Toast ref={toast} position='bottom-right' />
             <div>
                 <div className="d-flex justify-content-between m-2">
                     <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Interlocutorios</h1>
@@ -209,7 +216,7 @@ export default function Interlocutorios() {
                     rows={15}
                     tableStyle={{ minWidth: '100rem', height: 'auto' }}
                     filters={filters}
-
+                    rowClassName={rowClass}
                     className='border'
                 >
                     <Column header="Id" filterField='id' field='id' style={{ width: '2%', textAlign: 'center' }}></Column>

@@ -1,13 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Checkbox } from 'primereact/checkbox';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 
 export default function Tareas(props) {
 
     const [tareas, setTareas] = useState([]);
     const [isUpdated, setIsUpdated] = useState(true);
-    const [dataToAppend, setDataToAppend] = useState([]);
+    const [dataToAppend, setDataToAppend] = useState({});
+
+    const toast = useRef(null);
+
+    const showToast = (action) => {
+        switch (action) {
+            case "agregar":
+                toast.current.show({ severity: 'success', detail: 'Tarea agregada...' });
+                break;
+
+            default:
+                break;
+        }
+    };
 
     function obtenerTareas() {
         return fetch("https://script.google.com/macros/s/AKfycbwaPCwVRFyYHnIXM3YDArC8sqQh9VyDZms3Lqf9T949OSWvElWzNuyWML0m5IbV8K38/exec?action=obtenerTareas",
@@ -32,17 +45,21 @@ export default function Tareas(props) {
             .then(() => setIsUpdated(!isUpdated))
     }
 
-    function agregarTarea(titulo, descripcion){
-        fetch("https://script.google.com/macros/s/AKfycbyoz3EsPt0vdMOLMBAhWm9Fh1nYt_p6HIvWsGOBpzfnTxXLIGIuRCPEmHcLMJtPlRGJ/exec?action=agregarTareas",
+    function agregarTarea() {
+
+        //console.log(JSON.stringify(data))
+
+        fetch("https://script.google.com/macros/s/AKfycbzEDG38zp-3IcuzGhEh9l64XKuxrgpSdu2bsNlKC0KSivZiNWwdXpT8Io4VqT6q6WZm/exec?action=agregarTareas",
             {
                 method: 'POST',
-                body: JSON.stringify({
-                    titulo,
-                    descripcion
-                })
+                body: JSON.stringify(dataToAppend)
             })
-            .then(() => setIsUpdated(!isUpdated))
-            .then(() => setDataToAppend([]))
+            .then(() => {
+                setIsUpdated(!isUpdated);
+                setDataToAppend({});
+                showToast("agregar");
+            })
+
             .catch((error) => console.log(error))
     }
 
@@ -57,22 +74,22 @@ export default function Tareas(props) {
         setIsUpdated(!isUpdated);
     }, 300000);
 
-    function arrayToAppend(valor) {
+    function arrayToAppend(clave, valor) {
 
-        setDataToAppend( [...dataToAppend, valor ])
+        setDataToAppend({ ...dataToAppend, [clave]: valor })
 
     }
 
-    
     return (
         <section className="w-auto m-2 border p-3">
+            <Toast ref={toast} position='bottom-right' />
             <div className='d-flex col-12'>
                 <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Tareas</h1>
             </div>
             <div className='d-flex w-auto gap-3 m-3'>
-                    <InputText placeholder='Título' id='titulo' style={{ minWidth: '5%' }} onChange={(e) => arrayToAppend(e.target.id)}/>
-                    <InputText placeholder='Tarea' id='tarea' style={{ width: '100%' }} onChange={(e) => arrayToAppend(e.target.value)}/>
-                    <Button severity='success' rounded icon="pi pi-plus" style={{ borderRadius: "5px", minWidth: "10%" }} onClick={() => agregarTarea(dataToAppend)}/>
+                <InputText placeholder='Título' id='titulo' style={{ minWidth: '5%' }} onBlur={(e) => arrayToAppend(e.target.id, e.target.value)} />
+                <InputText placeholder='Tarea' id='descripcion' style={{ width: '100%' }} onBlur={(e) => arrayToAppend(e.target.id, e.target.value)} />
+                <Button severity='success' rounded icon="pi pi-plus" style={{ borderRadius: "5px", minWidth: "10%" }} onClick={() => agregarTarea(dataToAppend)} />
             </div>
             <div className='d-flex flex-fill flex-wrap p-2'>
                 <table className='table table-striped'>
@@ -87,14 +104,14 @@ export default function Tareas(props) {
                                         <td className='text-start'>
                                             {tarea.notes}
                                         </td>
-                                        
+
                                         {/* <td className='text-center'>
                                             <input type='checkbox' className='form-check-input fs-2' ></input>
                                             <Checkbox size='xl' id={tarea.id} ></Checkbox>
                                         </td> */}
-                                        
+
                                         <td >
-                                            <Button rounded text icon='pi pi-times' size='xl' style={{color: 'red'}} onClick={() => eliminarTareas(tarea.id)} > </Button>
+                                            <Button rounded text icon='pi pi-times' size='xl' style={{ color: 'red' }} onClick={() => eliminarTareas(tarea.id)} > </Button>
                                         </td>
 
                                     </tr>

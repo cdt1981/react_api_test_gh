@@ -14,7 +14,7 @@ export default function Pendientes(props) {
                     data[i].key.replace(`"`, ``)
                 }
                 setPendientes(data)
-                console.log(pendientes)
+                //console.log(pendientes)
             })
     }
 
@@ -24,7 +24,22 @@ export default function Pendientes(props) {
 
     return (
         <section className="d-xl-flex justfy-content-center flex-wrap m-2 border p-3 text-white">
-            <div className='row p-3 d-flex flex-fill'>
+            <div className='container fs-5 d-flex flex-column justify-content-center text-center'>
+                <div className='border rounded bg-danger p-4'>
+                    {pendientes.MMP ? `${pendientes.MMP} MMP` : `Ninguna MMP`}
+                </div>
+                <div className='border rounded bg-warning p-4'>
+                    {pendientes.Pendiente ? `${pendientes.Pendiente} pendientes de notificar` : `Ninguno pendiente`}
+                </div>
+                <div className='border rounded bg-success p-4'>
+                    {pendientes.Circulando ? `${pendientes.Circulando} circulando` : `Ninguno circulando`}
+                </div>
+            </div>
+
+
+
+
+            {/* <div className='row p-3 d-flex flex-fill'>
                 <div className='border border-solid rounded shadow bg-warning d-flex justify-content-center align-items-center mb-2' style={{ fontSize: "2rem" }}>
                     <span> Terminados: </span><br></br>
                     <span>{pendientes.Terminado}</span>
@@ -40,7 +55,7 @@ export default function Pendientes(props) {
                 <div className='border border-solid rounded shadow bg-danger d-flex justify-content-center align-items-center' style={{ fontSize: "2rem" }}>
                     Pendientes: {pendientes.Pendiente}
                 </div>
-            </div>
+            </div> */}
         </section>
     )
 }

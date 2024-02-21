@@ -1,0 +1,2 @@
+Me costó un huevo crear la función agregarTareas(). El problema estuvo en que cuando pasaba el JSON.Stringify al fetch lo estaba pasando así:
+JSON.Stringify({ estado }). Como estoy pasando un state no tiene que ir entre corchetes, o sea JSON.Stringify(estado)
