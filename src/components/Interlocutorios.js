@@ -10,7 +10,6 @@ import { FilterMatchMode } from 'primereact/api';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 
-
 export default function Interlocutorios() {
 
     const [datos, setDatos] = useState();
@@ -28,7 +27,8 @@ export default function Interlocutorios() {
     const [state, setState] = useState(true);
     const [dataToEdit, setDataToEdit] = useState({})
     const [dataToAppend, setDataToAppend] = useState({})
-    const [estado, setEstado] = useState()
+    const [estado, setEstado] = useState();
+    const dt = useRef(null)
 
 
     const getSeverity = (value) => {
@@ -182,13 +182,19 @@ export default function Interlocutorios() {
         };
     };
 
+    const exportCSV = () => {
+        dt.current.exportCSV();
+
+    };
+
     return (
 
         <section className="border m-4 p-3 mb-5" id='interlocutorios'>
             <Toast ref={toast} position='bottom-right' />
             <div>
                 <div className="d-flex justify-content-between m-2">
-                    <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Interlocutorios</h1>
+                    <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Interlocutorios </h1>
+                    <Button icon='pi pi-save' severity='success' rounded onClick={exportCSV} style={{ borderRadius: "5px"}}><span className='mx-4'>Exportar</span></Button>
                     <span className="p-input-icon-left d-flex align-items-center">
                         <i className="fa-solid fa-magnifying-glass"></i>
                         <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Buscar..." />
@@ -213,13 +219,14 @@ export default function Interlocutorios() {
                     /* onSelectionChange={(e) => setExpediente(e.value)} */
                     /* onDoubleClick={(e) => console.log(e.currentTarget)} */
                     paginator
-                    rows={15}
+                    rows={30}
                     tableStyle={{ minWidth: '100rem', height: 'auto' }}
                     filters={filters}
                     rowClassName={rowClass}
                     className='border'
+                    ref={dt}
                 >
-                    <Column header="Id" filterField='id' field='id' style={{ width: '2%', textAlign: 'center' }}></Column>
+                    <Column header="Id" sortable filterField='id' field='id' style={{ width: '2%', textAlign: 'center' }}></Column>
                     <Column header="Número" filterField='numero' field='numero' editor={(options) => textEditor(options)} style={{ width: '6%', textAlign: 'end' }}></Column>
                     <Column header="Carátula" filterField='caratula' field='caratula' editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                     <Column header="Ingreso" sortable field='ingreso' editor={(options) => dateEditor(options)} style={{ width: '6%' }}></Column>
