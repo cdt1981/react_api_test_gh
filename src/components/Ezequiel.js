@@ -58,7 +58,7 @@ export default function Ezequiel(props) {
                                     </td>
                                     <td className='text-center w-auto'>
                                         {
-                                           el.pasedc? new Date(el.pasedc).toLocaleDateString("es-ES"): ""
+                                            el.pasedc ? new Date(el.pasedc).toLocaleDateString("es-ES") : ""
                                         }
                                     </td>
                                     <td className='text-start w-auto'>

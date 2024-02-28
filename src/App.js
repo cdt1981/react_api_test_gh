@@ -9,6 +9,7 @@ import Tareas from './components/Tareas';
 import Vigencia from './components/Vigencia';
 import Ezequiel from './components/Ezequiel';
 import Sentencias from './components/Sentencias';
+import Modelos from './components/Modelos';
 
 const Home = () => {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path='/react_api_test_gh/' element={<Home/>}></Route>
         <Route path='/react_api_test_gh/sentencias' element={<Sentencias/>}></Route>
+        <Route path='/react_api_test_gh/modelos' element={<Modelos/>}></Route>
       </Routes>
     </>
   );

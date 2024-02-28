@@ -14,18 +14,16 @@ export default function Cotizaciones(props) {
             });
     }, [isUpdated])
 
-    setInterval(() => {
-        setIsUpdated(!isUpdated);
-    }, 300000);
+    /*     setInterval(() => {
+            setIsUpdated(!isUpdated);
+        }, 300000); */
 
     return (
         <section className="d-flex flex-fill flex-wrap m-2 border p-3">
-            <div>
+            <div className='d-flex gap-3'>
                 <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Dolar</h1>
+                <button className='btn mx-3 fs-5' onClick={() => setIsUpdated(!isUpdated)}><i className='fa fa-database'></i></button>
             </div>
-            {/*             <div className='d-flex flex-wrap col-2 fs-4 mx-3'>
-                <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}> Valor del Dólar</h1>
-            </div> */}
             <div className='d-flex col-12 p-2'>
                 <table className='table table-striped'>
                     <tr className='text-center'>

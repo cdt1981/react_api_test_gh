@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import RecallButton from './RecallButton';
 
 export default function Tareas(props) {
 
@@ -69,10 +70,10 @@ export default function Tareas(props) {
 
     }, [isUpdated]) // eslint-disable-line react-hooks/exhaustive-deps
 
-
+/* 
     setInterval(() => {
         setIsUpdated(!isUpdated);
-    }, 300000);
+    }, 300000); */
 
     function arrayToAppend(clave, valor) {
 
@@ -83,8 +84,9 @@ export default function Tareas(props) {
     return (
         <section className="w-auto m-2 border p-3">
             <Toast ref={toast} position='bottom-right' />
-            <div className='d-flex col-12'>
+            <div className='d-flex gap-3'>
                 <h1 style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Tareas</h1>
+                <button className='btn mx-3 fs-5' onClick={() => obtenerTareas()}><i className='fa fa-database'></i></button>
             </div>
             <div className='d-flex w-auto gap-3 m-3'>
                 <InputText placeholder='Título' id='titulo' style={{ minWidth: '5%' }} onBlur={(e) => arrayToAppend(e.target.id, e.target.value)} />
