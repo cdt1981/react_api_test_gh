@@ -7,7 +7,6 @@ import Cotizaciones from './components/Cotizaciones';
 import Pendientes from './components/Pendientes';
 import Tareas from './components/Tareas';
 import Vigencia from './components/Vigencia';
-import Ezequiel from './components/Ezequiel';
 import Sentencias from './components/Sentencias';
 import Modelos from './components/Modelos';
 
@@ -22,9 +21,6 @@ const Home = () => {
         <Pendientes></Pendientes>
         <Jus></Jus>
         <Vigencia></Vigencia>
-      </div>
-      <div>
-        <Ezequiel></Ezequiel>
       </div>
       <Interlocutorios />
     </>
