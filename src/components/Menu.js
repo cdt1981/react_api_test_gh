@@ -26,20 +26,24 @@ export default function Menu(props) {
     const centerContent = (
         <ul className="list-group list-group-horizontal fs-5">
             <li className="list-group-item">
-                <span><i className='pi pi-chart-line mx-3'></i></span>
+                <span><i className='pi pi-home mx-3'></i></span>
                 <Link to='/react_api_test_gh/'>Home</Link>
             </li>
             <li className="list-group-item">
                 <span><i className='pi pi-chart-line mx-3'></i></span>
-                <Link to='/react_api_test_gh/liquidaciones'>Liquidaciones</Link>
+                <Link to='/react_api_test_gh/liquidaciones' target='_blank' >Liquidaciones</Link>
             </li>
             <li className="list-group-item">
                 <span><i className='pi pi-database mx-3'></i></span>
-                <Link to='/react_api_test_gh/modelos'>Modelos</Link>
+                <Link to='/react_api_test_gh/modelos' target='_blank'>Modelos</Link>
             </li>
             <li className="list-group-item">
                 <span><i className='pi pi-server mx-3'></i></span>
-                <Link to='/react_api_test_gh/sentencias'>Sentencias</Link>
+                <Link to='/react_api_test_gh/sentencias' target='_blank'>Sentencias</Link>
+            </li>
+            <li className="list-group-item">
+                <span><i className='pi pi-calendar mx-3'></i></span>
+                <Link to='/react_api_test_gh/calendar' target='_blank'>Calendario</Link>
             </li>
         </ul>
     );
@@ -56,7 +60,7 @@ export default function Menu(props) {
     );
 
     return (
-        <div className="card">
+        <div className="card fixed-top">
             <Toolbar start={startContent} center={centerContent} end={endContent} />
         </div>
     );
