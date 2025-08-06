@@ -128,6 +128,7 @@ export default function Interlocutorios() {
             })
             .then(() => setState(!state))
             .then(() => showToast("modificar"))
+        console.log(e)
     }
 
     /* function obtenerDatos() {
